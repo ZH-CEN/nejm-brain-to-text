@@ -106,3 +106,14 @@ Our Kaldi-based ngram implementation requires a different version of torch than 
 ```
 
 Verify it worked by activating the conda environment with the command `conda activate b2txt25_lm`.
+
+## Word Vector Dimensions
+
+This brain-to-text system uses multiple vector representations:
+- **Neural features**: 512 dimensions (from brain signal electrodes)
+- **RNN hidden states**: 768 dimensions (for neural decoding)
+- **Word embeddings**: 4096 dimensions (OPT-6.7B language model)
+
+For detailed information about word vector dimensions used in this system, see:
+- [Word Vector Dimensions (English)](WORD_VECTOR_DIMENSIONS_EN.md)
+- [词向量维度说明 (中文)](WORD_VECTOR_DIMENSIONS_CN.md)
