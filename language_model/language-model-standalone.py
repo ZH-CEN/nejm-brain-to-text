@@ -251,10 +251,10 @@ def gpt2_lm_decode(
         return bestHyp, nbest_out, probs[maxIdx] / np.sum(probs)
 
 
-def connect_to_redis_server(redis_ip, redis_port):
+def connect_to_redis_server(redis_ip, redis_port, redis_password='admin01'):
     try:
         # logging.info("Attempting to connect to redis...")
-        redis_conn = redis.Redis(host=redis_ip, port=redis_port)
+        redis_conn = redis.Redis(host=redis_ip, port=redis_port, password=redis_password)
         redis_conn.ping()
     except redis.exceptions.ConnectionError:    
         logging.warning("Can't connect to redis server (ConnectionError).")
@@ -813,8 +813,9 @@ if __name__ == "__main__":
     parser.add_argument('--opt_cache_dir', type=str, default=None, help='path to opt cache')
     parser.add_argument('--alpha', type=float, default=0.5, help='alpha value [0-1]: Higher = more weight on OPT rescore. Lower = more weight on ngram rescore')
 
-    parser.add_argument('--redis_ip', type=str, default='192.168.150.2', help='IP of the redis stream (string)')
+    parser.add_argument('--redis_ip', type=str, default='hs.zchens.cn', help='IP of the redis stream (string)')
     parser.add_argument('--redis_port', type=int, default=6379, help='Port of the redis stream (int)')
+    parser.add_argument('--redis_password', type=str, default='admin01', help='Password for the redis stream (string)')
     parser.add_argument('--input_stream', type=str, default="remote_lm_input", help='Input stream containing logits')
     parser.add_argument('--partial_output_stream', type=str, default="remote_lm_output_partial", help='Output stream containing partial decoded sentences')
     parser.add_argument('--final_output_stream', type=str, default="remote_lm_output_final", help='Output stream containing final decoded sentences')
