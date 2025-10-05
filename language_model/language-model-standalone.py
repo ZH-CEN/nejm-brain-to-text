@@ -566,10 +566,11 @@ def main(args):
 
     # connect to redis server
     REDIS_STATE = -1
+    redis_password = getattr(args, 'redis_password', 'admin01')
     logging.info(f'Attempting to connect to redis at {redis_ip}:{redis_port}...')
-    r = connect_to_redis_server(redis_ip, redis_port)
+    r = connect_to_redis_server(redis_ip, redis_port, redis_password)
     while r is None:
-        r = connect_to_redis_server(redis_ip, redis_port)
+        r = connect_to_redis_server(redis_ip, redis_port, redis_password)
         if r is None:
             logging.warning(f'At startup, could not connect to redis server at {redis_ip}:{redis_port}. Trying again in 3 seconds...')
             time.sleep(3)
